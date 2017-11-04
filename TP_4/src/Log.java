@@ -1,4 +1,3 @@
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,16 +17,6 @@ public class Log {
 	
 	public Event getEvent(int key) {
 		return log.get(key);
-	}
-	
-	public static void main(String[] args) {
-		Log l = new Log();
-		
-		l.logEvent(new Event(new Patron(), new Copy()));
-		
-		for(Integer key: log.keySet()) {
-			System.out.println(key + " - " + log.get(key));
-		}
 	}
 	
 }

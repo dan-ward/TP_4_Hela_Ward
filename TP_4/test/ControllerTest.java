@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.util.Calendar;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,9 +16,9 @@ public class ControllerTest {
 		String patronId = "123abc";
 		Controller controller = new Controller();
 		
-		String patronName = controller.startTransaction(patronId);
+		Patron patron = controller.startTransaction(patronId);
 		
-		assertEquals("patron name not as expected", "Test Patron", patronName);
+		assertEquals("patron name not as expected", "Test Patron", patron.getName());
 	}
 	
 	@Test
@@ -33,15 +35,32 @@ public class ControllerTest {
 		assertEquals("controller transaction type != out", false, controller.setTransactionType("bad transaction type"));
 	}
 	
+	@Test
 	public void test_check_out_copy() {
 		Controller controller = new Controller();
-		controller.startTransaction("123abc");
+		
+		Patron patron = controller.startTransaction("123abc");
+		
 		controller.setTransactionType("out");
 		
-		String copyId = "abc123";
+		Copy copy = controller.checkOutCopy("abc123");
 		
-		controller.checkOutCopy(copyId);
-		assertEquals("check out failure", "This is a Test Title", controller.checkOutCopy(copyId));
+		assertEquals("check out failure", "This is a Test Title", controller.checkOutCopy("abc123").getTitle());
+		assertEquals("check out should set copy's isCheckedOut", true, copy.isCheckedOut());
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DAY_OF_MONTH, 14);
+		
+		assertEquals("copy should be due in 14 days", calendar.getTime().toString(), copy.getDueDate().toString()); 
+	}
+	
+	@Test
+	public void test_log_event() {
+		Controller controller = new Controller();
+		Patron patron = controller.startTransaction("123abc");
+		controller.setTransactionType("out");	
+		Copy copy = controller.checkOutCopy("abc123");
+		//finish
 	}
 
 }

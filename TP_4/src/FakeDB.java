@@ -9,8 +9,8 @@ public class FakeDB {
 	
 	static {
 		copyStore = new HashMap<String, Copy>();
-		copyStore.put("C1", new Copy("abc123", "This is a Test Title", null));
-		copyStore.put("abc123", new Copy("abc123", "This is a Test Title", null));
+		copyStore.put("C1", new Copy("abc123", "This is a Test Title"));
+		copyStore.put("abc123", new Copy("abc123", "This is a Test Title"));
 		
 		patronStore = new HashMap<String, Patron>();
 		patronStore.put("P1", new Patron("123abc", "Test Patron"));

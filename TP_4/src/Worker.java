@@ -29,5 +29,8 @@ public class Worker {
 		this.name = name;
 	}
 	
+	public String toString() {
+		return this.id;
+	}
 	
 }

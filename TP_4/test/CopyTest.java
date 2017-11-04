@@ -37,18 +37,7 @@ public class CopyTest {
 		assertNotNull("dueDate is null", c.getDueDate());
 	}
 	
-	@Test
-	public void test_set_due_date() {
-		Copy c = new Copy();
-		Date date = new Date();
-		Calendar calendar = Calendar.getInstance();
-		
-		calendar.setTime(date);
-		calendar.add(Calendar.DATE, 14); 
-		c.setDueDate(calendar);
-		
-		assertEquals("dueDate is not set", calendar.toString(), c.getDueDate().toString());
-	}
+
 	
 	@Test
 	public void test_is_checked_out() {
@@ -64,15 +53,26 @@ public class CopyTest {
 	}
 	
 	@Test
+	public void test_check_out_copy() {
+		Copy c = new Copy();
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DAY_OF_MONTH, 14); 
+		
+		c.checkOut();
+		assertEquals("copy should be due in 14 days", calendar.getTime().toString(), c.getDueDate().toString()); 		
+		
+	}
+	
+	@Test
 	public void test_copy_constructor() {
 		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DATE, 14);
+		calendar.add(Calendar.DAY_OF_MONTH, 14);		
 		
-		Copy c = new Copy("abc123", "This is a Test Title", calendar);
+		Copy c = new Copy("abc123", "This is a Test Title");
 		
 		assertEquals("copy constructor failure - id", "abc123", c.getId());
 		assertEquals("copy constructor failure - isCheckedOut", false, c.isCheckedOut());
-		assertEquals("copy constructor failure - dueDate", calendar.toString(), c.getDueDate().toString());
 	}
 
 	@Test

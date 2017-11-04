@@ -11,14 +11,14 @@ public class Copy {
 		this.id = "";
 		this.textbook = null;
 		this.isCheckedOut = false;
-		this.dueDate = Calendar.getInstance();
+		this.dueDate = null;
 	}
 	
-	public Copy(String id, String title, Calendar dueDate) {
+	public Copy(String id, String title) {
 		this.id = id;
 		this.textbook = new Textbook(title);
 		this.isCheckedOut = false;
-		this.dueDate = dueDate;
+		this.dueDate = null;
 	}
 	
 	public String getId() {
@@ -29,8 +29,8 @@ public class Copy {
 		this.id = id;
 	}
 	
-	public Calendar getDueDate() {
-		return this.dueDate;
+	public Date getDueDate() {
+		return this.dueDate.getTime();
 	}
 	
 	public void setDueDate(Calendar calendar) {
@@ -39,6 +39,8 @@ public class Copy {
 	
 	public void checkOut() {
 		this.isCheckedOut = true;
+		this.dueDate = Calendar.getInstance();
+		this.dueDate.add(Calendar.DATE, 14);
 	}
 	
 	public boolean isCheckedOut() {

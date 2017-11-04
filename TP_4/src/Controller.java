@@ -9,11 +9,9 @@ public class Controller {
 		this.db = new FakeDB();
 	}
 	
-	public String startTransaction(String patronId) {
+	public Patron startTransaction(String patronId) {
 		this.activePatron = this.db.getPatron(patronId);
-		System.out.println(patronId);
-		System.out.println(this.activePatron.getName());
-		return this.activePatron.getName();
+		return this.activePatron;
 	}
 	
 	public Boolean setTransactionType(String transactionType) {
@@ -36,9 +34,10 @@ public class Controller {
 		this.activePatron = activePatron;
 	}
 	
-	public String checkOutCopy(String copyId) {
+	public Copy checkOutCopy(String copyId) {
 		this.activeCopy = this.db.getCopy(copyId);
-		return this.activeCopy.getTitle();
+		this.activeCopy.checkOut();
+		return this.activeCopy;
 	}
 
 }

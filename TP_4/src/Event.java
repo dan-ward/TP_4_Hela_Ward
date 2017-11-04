@@ -4,13 +4,23 @@ public class Event {
 	private Calendar eventDateTime;
 	private Patron patron;
 	private Copy copy;
+	private Worker worker;
 	
-	public Event(Patron patron, Copy copy) {
+	public Event(Worker worker, Patron patron, Copy copy) {
 		this.eventDateTime = Calendar.getInstance();
 		this.patron = patron;
 		this.copy = copy;
+		this.worker = worker;
 	}
 	
+	public Worker getWorker() {
+		return worker;
+	}
+
+	public void setWorker(Worker worker) {
+		this.worker = worker;
+	}
+
 	public Calendar getEventDateTime() {
 		return eventDateTime;
 	}
@@ -37,6 +47,7 @@ public class Event {
 	
 	public String toString() {
 		return eventDateTime.getTime()
+				+ "\n\t" + worker.toString()
 				+ "\n\t" + patron.toString() 
 				+ "\n\t" + copy.toString();
 	}
