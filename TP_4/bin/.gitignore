@@ -9,3 +9,10 @@
 /Patron.class
 /PatronTest.class
 /Log.class
+/Worker.class
+/WorkerTest.class
+/ControllerTest.class
+/Title.class
+/TitleTest.class
+/Textbook.class
+/TextbookTest.class

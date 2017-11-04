@@ -1,12 +1,9 @@
 import java.util.Calendar;
-import java.util.Date;
 
 public class Event {
 	private Calendar eventDateTime;
 	private Patron patron;
 	private Copy copy;
-	
-	private Date date;
 	
 	public Event(Patron patron, Copy copy) {
 		this.eventDateTime = Calendar.getInstance();

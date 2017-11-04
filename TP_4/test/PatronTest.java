@@ -21,5 +21,13 @@ public class PatronTest {
 		p.setId("123abc");
 		assertEquals("patronId not set", "123abc", p.getId());
 	}
+	
+	@Test
+	public void test_patron_to_string() {
+		FakeDB db = new FakeDB();		
+		Patron patron = db.getPatron("P1");
+		
+		assertEquals("patron toString() failure", "123abc", patron.toString());
+	}
 
 }

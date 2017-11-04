@@ -43,7 +43,7 @@ public class EventTest {
 		
 		Event event = new Event(patron, copy);		
 		
-		assertEquals("Not as expected", event.getEventDateTime().getTime()
+		assertEquals("event not as expected", event.getEventDateTime().getTime()
 				+ "\n\t" + patron.toString() 
 				+ "\n\t" + copy.toString(), event.toString());
 	}

@@ -1,39 +1,33 @@
 
-public class Patron {
-
+public class Worker {
 	private String id;
 	private String name;
 	
-
-
-	public Patron() {
+	public Worker() {
 		this.id = "";
 		this.name = "";
 	}
 	
-	public Patron(String id, String name) {
+	public Worker(String id, String name) {
 		this.id = id;
 		this.name = name;
 	}
-	
+
+	public String getId() {
+		return id;
+	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	public String getId() {
-		return this.id;
-	}
-	
+
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}	
-	
-	public String toString() {
-		return this.id;
 	}
+	
 	
 }

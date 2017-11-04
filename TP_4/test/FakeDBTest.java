@@ -32,5 +32,13 @@ public class FakeDBTest {
 		assertNotNull("Copy is null", c);
 		assertEquals("Copy id not as expected", "abc123", c.getId());
 	}
+	
+	@Test
+	public void test_get_worker() {
+		FakeDB db = new FakeDB();
+		Worker worker = db.getWorker("W1");
+		assertNotNull("worker is null", worker);
+		assertEquals("worker id not as expected", "a1b2c3", worker.getId());
+	}
 
 }

@@ -3,19 +3,22 @@ import java.util.Date;
 
 public class Copy {
 	private String id;
+	private Textbook textbook;
 	private Boolean isCheckedOut;
 	private Calendar dueDate;
 		
 	public Copy() {
 		this.id = "";
+		this.textbook = null;
 		this.isCheckedOut = false;
 		this.dueDate = Calendar.getInstance();
 	}
 	
-	public Copy(String id, boolean isCheckedOut, Calendar calendar) {
+	public Copy(String id, String title, Calendar dueDate) {
 		this.id = id;
-		this.isCheckedOut = isCheckedOut;
-		this.dueDate = calendar;
+		this.textbook = new Textbook(title);
+		this.isCheckedOut = false;
+		this.dueDate = dueDate;
 	}
 	
 	public String getId() {
@@ -44,5 +47,9 @@ public class Copy {
 	
 	public String toString() {
 		return this.id;
+	}
+	
+	public String getTitle() {
+		return textbook.getTitle();
 	}
 }
