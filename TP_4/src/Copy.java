@@ -41,4 +41,8 @@ public class Copy {
 	public boolean isCheckedOut() {
 		return this.isCheckedOut;
 	}
+	
+	public String toString() {
+		return this.id;
+	}
 }

@@ -1,7 +1,11 @@
 /Controller.class
 /Copy.class
 /CopyTest.class
+/Event.class
+/EventTest.class
 /FakeDB.class
 /FakeDBTest.class
+/LogTest.class
 /Patron.class
 /PatronTest.class
+/Log.class
