@@ -63,4 +63,16 @@ public class ControllerTest {
 		//finish
 	}
 
+	@Test
+	public void login_worker() {
+		String workerId = "W1";
+		Controller controller = new Controller();
+		
+		Worker worker = controller.loginWorker(workerId);
+		
+		assertEquals("worker name not as expected", "Test Worker", worker.getName());
+		
+	}
+	
+	
 }

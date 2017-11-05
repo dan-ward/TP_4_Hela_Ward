@@ -4,7 +4,8 @@ public class Controller {
 	Patron activePatron;
 	String transactionType;
 	Copy activeCopy;
-
+	Worker activeWorker;
+	
 	public Controller() {
 		this.db = new FakeDB();
 	}
@@ -38,6 +39,11 @@ public class Controller {
 		this.activeCopy = this.db.getCopy(copyId);
 		this.activeCopy.checkOut();
 		return this.activeCopy;
+	}
+
+	public Worker loginWorker(String workerId) {
+		this.activeWorker = this.db.getWorker(workerId);
+		return this.activeWorker;
 	}
 
 }
