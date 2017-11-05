@@ -24,4 +24,29 @@ public class WorkerTest {
 		assertEquals("worker id not retrieved", "Bob", worker.getName());
 	}
 
+	@Test
+	public void test_set_worker_id() {
+		Worker worker = new Worker();
+		
+		worker.setId("W1");
+		assertEquals("workerId not set", "W1", worker.getId());
+	}
+	
+
+	@Test
+	public void test_worker_set_worker_name() {
+		Worker worker = new Worker();
+		
+		worker.setName("Bob");
+		assertEquals("workerName not set", "Bob", worker.getName());
+	}
+	
+	@Test
+	public void test_worker_to_string() {
+		FakeDB db = new FakeDB();		
+		Worker worker = db.getWorker("W1");
+		
+		assertEquals("worker toString() failure", "a1b2c3", worker.toString());
+	}
+	
 }
