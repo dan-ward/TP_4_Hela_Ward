@@ -45,22 +45,29 @@ public class ControllerTest {
 		
 		Copy copy = controller.checkOutCopy("abc123");
 		
-		assertEquals("check out failure", "This is a Test Title", controller.checkOutCopy("abc123").getTitle());
+		assertEquals("check out failure", "This is a Test Title", copy.getTitle());
 		assertEquals("check out should set copy's isCheckedOut", true, copy.isCheckedOut());
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DAY_OF_MONTH, 14);
 		
-		assertEquals("copy should be due in 14 days", calendar.getTime().toString(), copy.getDueDate().toString()); 
+		assertEquals("copy should be due in 14 days", calendar.getTime().toString(), copy.getDueDate().toString());
+		
+		assertEquals("patron should have 1 copy checked out", 1, patron.getCheckedOutCopyCount());
+		assertEquals("patron's copy should match this copy", true, patron.checkInCopy(copy));
 	}
 	
 	@Test
 	public void test_log_event() {
 		Controller controller = new Controller();
+		Worker worker = controller.loginWorker("a1b2c3");
 		Patron patron = controller.startTransaction("123abc");
 		controller.setTransactionType("out");	
 		Copy copy = controller.checkOutCopy("abc123");
-		//finish
+
+		Event event = new Event(worker, patron, copy);
+		
+		assertEquals("event should contain worker, patron, copy", event.toString(), controller.getLastEvent().toString());
 	}
 
 	@Test

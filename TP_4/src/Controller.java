@@ -5,6 +5,8 @@ public class Controller {
 	String transactionType;
 	Copy activeCopy;
 	Worker activeWorker;
+	Log log = new Log();
+	int lastEventKey;
 	
 	public Controller() {
 		this.db = new FakeDB();
@@ -38,7 +40,16 @@ public class Controller {
 	public Copy checkOutCopy(String copyId) {
 		this.activeCopy = this.db.getCopy(copyId);
 		this.activeCopy.checkOut();
+		this.activePatron.addCheckedOutCopy(this.activeCopy);
+		
+		Event event = new Event(this.activeWorker, this.activePatron, this.activeCopy);
+		lastEventKey = this.log.logEvent(event);
+		
 		return this.activeCopy;
+	}
+	
+	public Event getLastEvent() {
+		return log.getEvent(lastEventKey);
 	}
 
 	public Worker loginWorker(String workerId) {

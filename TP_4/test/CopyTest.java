@@ -27,7 +27,7 @@ public class CopyTest {
 	@Test
 	public void test_set_copy_id() {
 		Copy c = new Copy();
-		c.setCopyId("abc123");
+		c.setId("abc123");
 		assertEquals("copy id not set", "abc123", c.getId());
 	}
 			

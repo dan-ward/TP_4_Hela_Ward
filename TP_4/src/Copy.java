@@ -25,7 +25,7 @@ public class Copy {
 		return this.id;
 	}
 	
-	public void setCopyId(String id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	
