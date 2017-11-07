@@ -30,15 +30,7 @@ public class CopyTest {
 		c.setCopyId("abc123");
 		assertEquals("copy id not set", "abc123", c.getId());
 	}
-	
-	@Test
-	public void test_get_due_date() {
-		Copy c = new Copy();
-		assertNotNull("dueDate is null", c.getDueDate());
-	}
-	
-
-	
+			
 	@Test
 	public void test_is_checked_out() {
 		Copy c = new Copy();
@@ -46,7 +38,7 @@ public class CopyTest {
 	}
 	
 	@Test
-	public void test_check_out() {
+	public void test_set_is_checked_out() {
 		Copy c = new Copy();
 		c.checkOut();
 		assertEquals("not checked out", true, c.isCheckedOut());

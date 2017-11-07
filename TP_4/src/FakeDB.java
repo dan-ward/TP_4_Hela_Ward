@@ -11,6 +11,7 @@ public class FakeDB {
 		copyStore = new HashMap<String, Copy>();
 		copyStore.put("C1", new Copy("abc123", "This is a Test Title"));
 		copyStore.put("abc123", new Copy("abc123", "This is a Test Title"));
+		copyStore.put("abc124", new Copy("abc124", "This is a Test Title"));
 		
 		patronStore = new HashMap<String, Patron>();
 		patronStore.put("P1", new Patron("123abc", "Test Patron"));
