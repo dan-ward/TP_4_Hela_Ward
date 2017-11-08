@@ -19,4 +19,13 @@ public class Log {
 		return log.get(key);
 	}
 	
+	public String toString() {
+		String logString = "";
+		
+		for(int i = 1; i < log.size(); i++) {
+			logString += this.getEvent(i).toString() + '\n';
+		}
+		
+		return logString;
+	}
 }

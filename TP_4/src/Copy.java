@@ -43,6 +43,11 @@ public class Copy {
 		this.dueDate.add(Calendar.DATE, 14);
 	}
 	
+	public void checkIn() {
+		this.isCheckedOut = false;
+		this.dueDate = null;
+	}
+	
 	public boolean isCheckedOut() {
 		return this.isCheckedOut;
 	}

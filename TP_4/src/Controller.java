@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class Controller {
 	FakeDB db = new FakeDB();
@@ -7,6 +10,8 @@ public class Controller {
 	Worker activeWorker;
 	Log log = new Log();
 	int lastEventKey;
+	
+	Queue<Copy> checkOutQueue = new LinkedList<Copy>();
 	
 	public Controller() {
 		this.db = new FakeDB();
@@ -39,12 +44,7 @@ public class Controller {
 	
 	public Copy checkOutCopy(String copyId) {
 		this.activeCopy = this.db.getCopy(copyId);
-		this.activeCopy.checkOut();
-		this.activePatron.addCheckedOutCopy(this.activeCopy);
-		
-		Event event = new Event(this.activeWorker, this.activePatron, this.activeCopy);
-		lastEventKey = this.log.logEvent(event);
-		
+		checkOutQueue.add(this.activeCopy);
 		return this.activeCopy;
 	}
 	
@@ -55,6 +55,34 @@ public class Controller {
 	public Worker loginWorker(String workerId) {
 		this.activeWorker = this.db.getWorker(workerId);
 		return this.activeWorker;
+	}
+	
+	public Queue<Copy> getCheckOutQueue() {
+		return this.checkOutQueue;
+	}
+	
+	public void completeSession() {
+		while (checkOutQueue.size() > 0) {
+			Copy c = checkOutQueue.poll();
+			c.checkOut();
+			StdOut.println(c.toString());
+			this.activePatron.addCheckedOutCopy(c);
+			Event event = new Event(this.activeWorker, this.activePatron, c);
+			lastEventKey = this.log.logEvent(event);
+			checkOutQueue.remove(c);
+		}
+	}
+	
+	public Log getLog() {
+		return this.log;
+	}
+	
+	public void checkInAllCopies() {
+		db.checkInAllCopies();
+	}
+	
+	public List<Copy> getAllCheckedOutCopies() {
+		return db.getAllCheckedOutCopies();
 	}
 
 }
