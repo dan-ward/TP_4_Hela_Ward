@@ -50,7 +50,16 @@ public class Controller {
 	public Event getLastEvent() {
 		return log.getEvent(lastEventKey);
 	}
-
+	
+	public boolean validateAndLoginWorker(String workerID) {
+		if (this.db.validateWorkerID(workerID)) {
+			this.activeWorker = this.loginWorker(workerID);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public Worker loginWorker(String workerId) {
 		this.activeWorker = this.db.getWorker(workerId);
 		return this.activeWorker;

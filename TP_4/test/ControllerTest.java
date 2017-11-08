@@ -81,6 +81,26 @@ public class ControllerTest {
 	}
 	
 	@Test
+	public void test_validate_and_login_worker() {
+		String workerId = "W1";
+		Controller controller = new Controller();
+		
+		boolean isWorker = controller.validateAndLoginWorker(workerId);
+		
+		assertEquals("worker is not valid", true, isWorker);
+	}
+	
+	@Test
+	public void test_validate_and_login_worker_fake_workerID() {
+		String workerId = "W9";
+		Controller controller = new Controller();
+		
+		boolean isWorker = controller.validateAndLoginWorker(workerId);
+		
+		assertEquals("worker is valid", false, isWorker);
+	}
+	
+	@Test
 	public void test_add_copy_to_check_out_queue() {
 		Controller controller = new Controller();
 		Worker worker = controller.loginWorker("W2");

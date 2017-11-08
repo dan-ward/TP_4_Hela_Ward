@@ -41,4 +41,10 @@ public class FakeDBTest {
 		assertEquals("worker id not as expected", "W1", worker.getId());
 	}
 
+	@Test
+	public void test_get_invalid_worker() {
+		FakeDB db = new FakeDB();
+		Worker worker = db.getWorker("W9");
+		assertNull("worker is not null", worker);
+	}
 }

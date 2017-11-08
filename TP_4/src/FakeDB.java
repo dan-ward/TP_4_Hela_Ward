@@ -31,6 +31,14 @@ public class FakeDB {
 		return textbookStore.get(key);
 	}
 	
+	public boolean validateWorkerID(String key) {
+		if (workerStore.get(key) == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	public Worker getWorker(String key) {
 		return workerStore.get(key);
 	}
