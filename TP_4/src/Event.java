@@ -1,16 +1,25 @@
 import java.util.Calendar;
 
 public class Event {
-	private Calendar eventDateTime;
+	private Worker worker;
 	private Patron patron;
 	private Copy copy;
-	private Worker worker;
+	private Calendar eventDateTime;
+	
 	
 	public Event(Worker worker, Patron patron, Copy copy) {
 		this.eventDateTime = Calendar.getInstance();
+		this.worker = worker;
 		this.patron = patron;
 		this.copy = copy;
-		this.worker = worker;
+	}
+	
+	public Calendar getEventDateTime() {
+		return eventDateTime;
+	}
+
+	public void setEventDateTime(Calendar eventDateTime) {
+		this.eventDateTime = eventDateTime;
 	}
 	
 	public Worker getWorker() {
@@ -21,14 +30,6 @@ public class Event {
 		this.worker = worker;
 	}
 
-	public Calendar getEventDateTime() {
-		return eventDateTime;
-	}
-
-	public void setEventDateTime(Calendar eventDateTime) {
-		this.eventDateTime = eventDateTime;
-	}
-
 	public Patron getPatron() {
 		return patron;
 	}
@@ -36,7 +37,7 @@ public class Event {
 	public void setPatron(Patron patron) {
 		this.patron = patron;
 	}
-
+	
 	public Copy getCopy() {
 		return copy;
 	}

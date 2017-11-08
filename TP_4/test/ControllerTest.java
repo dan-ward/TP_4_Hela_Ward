@@ -11,6 +11,8 @@ public class ControllerTest {
 
 	@Before
 	public void setUp() throws Exception {
+		Controller controller = new Controller();
+		controller.checkInAllCopies();
 	}
 
 	@Test

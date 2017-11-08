@@ -14,9 +14,16 @@ public class Copy {
 		this.dueDate = null;
 	}
 	
-	public Copy(String id, String title) {
+//	public Copy(String id, String title) {
+//		this.id = id;
+//		this.textbook = new Textbook(title);
+//		this.isCheckedOut = false;
+//		this.dueDate = null;
+//	}
+	
+	public Copy(String id, Textbook textbook) {
 		this.id = id;
-		this.textbook = new Textbook(title);
+		this.textbook = textbook;
 		this.isCheckedOut = false;
 		this.dueDate = null;
 	}

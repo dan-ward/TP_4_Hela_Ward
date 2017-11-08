@@ -58,10 +58,13 @@ public class CopyTest {
 	
 	@Test
 	public void test_copy_constructor() {
+		FakeDB db = new FakeDB();
+		Textbook textbook = db.getTextbook("T1");
+		
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DAY_OF_MONTH, 14);		
 		
-		Copy c = new Copy("abc123", "This is a Test Title");
+		Copy c = new Copy("abc123", textbook);
 		
 		assertEquals("copy constructor failure - id", "abc123", c.getId());
 		assertEquals("copy constructor failure - isCheckedOut", false, c.isCheckedOut());
