@@ -10,32 +10,21 @@ public class FakeDB {
 	private static Map<String, Patron> patronStore;
 	private static Map<String, Copy> copyStore;
 	
-	
 	static {
 		textbookStore = new HashMap<String, Textbook>();
-		textbookStore.put("T1", new Textbook("This is a Test Title"));
+		textbookStore.put("T1", new Textbook("Test Title"));
 		
 		workerStore = new HashMap<String, Worker>();
-		workerStore.put("W1",  new Worker("a1b2c3", "Test Worker"));
-		workerStore.put("a1b2c3",  new Worker("a1b2c3", "Test Worker"));
+		workerStore.put("W1",  new Worker("W1", "Test Worker"));
 		workerStore.put("W2",  new Worker("W2", "Test Worker"));
 		
 		patronStore = new HashMap<String, Patron>();
-		patronStore.put("P1", new Patron("123abc", "Test Patron"));
-		patronStore.put("123abc", new Patron("123abc", "Test Patron"));
+		patronStore.put("P1", new Patron("P1", "Test Patron"));
 		patronStore.put("P2", new Patron("P2", "Test Patron"));
 		
 		copyStore = new HashMap<String, Copy>();
-		copyStore.put("C1", new Copy("abc123", textbookStore.get("T1")));
-		copyStore.put("abc123", new Copy("abc123", textbookStore.get("T1")));
-		copyStore.put("abc124", new Copy("abc124", textbookStore.get("T1")));
+		copyStore.put("C1", new Copy("C1", textbookStore.get("T1")));
 		copyStore.put("C2", new Copy("C2", textbookStore.get("T1")));
-		
-//		copyStore = new HashMap<String, Copy>();
-//		copyStore.put("C1", new Copy("abc123", "This is a Test Title"));
-//		copyStore.put("abc123", new Copy("abc123", "This is a Test Title"));
-//		copyStore.put("abc124", new Copy("abc124", "This is a Test Title"));
-//		copyStore.put("C2", new Copy("C2", "This is a Test Title"));
 	}
 	
 	public Textbook getTextbook(String key) {
@@ -65,6 +54,14 @@ public class FakeDB {
 	}
 	
 	public void checkInAllCopies() {
+		for(Patron p: patronStore.values()) {
+			List<Copy> patronCopies = new ArrayList<Copy>();
+			patronCopies = p.getCheckedOutCopies();
+			for(Copy c: patronCopies) {
+				c.checkIn();
+				patronCopies.remove(c);
+			}
+		}
 		for(Copy c: copyStore.values()) {
 			c.checkIn();
 		}

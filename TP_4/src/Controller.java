@@ -4,13 +4,12 @@ import java.util.Queue;
 
 public class Controller {
 	FakeDB db = new FakeDB();
+	Log log = new Log();
+	int lastEventKey;
+	Worker activeWorker;
 	Patron activePatron;
 	String transactionType;
 	Copy activeCopy;
-	Worker activeWorker;
-	Log log = new Log();
-	int lastEventKey;
-	
 	Queue<Copy> checkOutQueue = new LinkedList<Copy>();
 	
 	public Controller() {
@@ -84,5 +83,4 @@ public class Controller {
 	public List<Copy> getAllCheckedOutCopies() {
 		return db.getAllCheckedOutCopies();
 	}
-
 }

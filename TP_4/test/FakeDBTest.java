@@ -22,7 +22,7 @@ public class FakeDBTest {
 		FakeDB db = new FakeDB();
 		Patron p = db.getPatron("P1");
 		assertNotNull("Patron is null", p);
-		assertEquals("Patron Id id not as expected", "123abc", p.getId());
+		assertEquals("Patron Id id not as expected", "P1", p.getId());
 	}	
 	
 	@Test
@@ -30,7 +30,7 @@ public class FakeDBTest {
 		FakeDB db = new FakeDB();
 		Copy c = db.getCopy("C1");
 		assertNotNull("Copy is null", c);
-		assertEquals("Copy id not as expected", "abc123", c.getId());
+		assertEquals("Copy id not as expected", "C1", c.getId());
 	}
 	
 	@Test
@@ -38,7 +38,7 @@ public class FakeDBTest {
 		FakeDB db = new FakeDB();
 		Worker worker = db.getWorker("W1");
 		assertNotNull("worker is null", worker);
-		assertEquals("worker id not as expected", "a1b2c3", worker.getId());
+		assertEquals("worker id not as expected", "W1", worker.getId());
 	}
 
 }

@@ -7,8 +7,6 @@ public class Patron {
 	private String name;
 	private List<Copy> checkedOutCopies = new ArrayList<Copy>();
 	
-
-
 	public Patron() {
 		this.id = "";
 		this.name = "";
@@ -49,5 +47,9 @@ public class Patron {
 	
 	public int getCheckedOutCopyCount() {
 		return checkedOutCopies.size();
+	}
+	
+	public List<Copy> getCheckedOutCopies() {
+		return checkedOutCopies;
 	}
 }

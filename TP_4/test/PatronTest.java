@@ -27,7 +27,7 @@ public class PatronTest {
 		FakeDB db = new FakeDB();		
 		Patron patron = db.getPatron("P1");
 		
-		assertEquals("patron toString() failure", "123abc", patron.toString());
+		assertEquals("patron toString() failure", "P1", patron.toString());
 	}
 	
 	@Test
@@ -45,16 +45,13 @@ public class PatronTest {
 	public void test_get_checked_out_copy_cout() {
 		FakeDB db = new FakeDB();
 		Patron patron = db.getPatron("P1");
-		Copy copy1 = db.getCopy("abc123");
-		Copy copy2 = db.getCopy("abc123");
+		Copy copy1 = db.getCopy("C1");
+		Copy copy2 = db.getCopy("C2");
 		
 		patron.addCheckedOutCopy(copy1);
 		patron.addCheckedOutCopy(copy1);
 		
 		assertEquals("patron should have 2 copies checked out", 2, patron.getCheckedOutCopyCount());
-		
-		
-		
 	}
 
 }

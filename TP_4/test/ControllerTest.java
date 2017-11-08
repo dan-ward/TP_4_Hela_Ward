@@ -11,13 +11,11 @@ public class ControllerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		Controller controller = new Controller();
-		controller.checkInAllCopies();
 	}
 
 	@Test
 	public void test_start_transaction() {
-		String patronId = "123abc";
+		String patronId = "P1";
 		Controller controller = new Controller();
 		
 		Patron patron = controller.startTransaction(patronId);
@@ -42,33 +40,28 @@ public class ControllerTest {
 	@Test
 	public void test_check_out_copy() {
 		Controller controller = new Controller();
-		
-		Patron patron = controller.startTransaction("123abc");
-		
+		controller.checkInAllCopies();		
+		Patron patron = controller.startTransaction("P1");
 		controller.setTransactionType("out");
-		
-		Copy copy = controller.checkOutCopy("abc123");
+		Copy copy = controller.checkOutCopy("C1");
 		
 		controller.completeSession();
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DAY_OF_MONTH, 14);
 		
-		assertEquals("check out failure", "This is a Test Title", copy.getTitle());
+		assertEquals("check out failure", "Test Title", copy.getTitle());
 		assertEquals("check out should set copy's isCheckedOut", true, copy.isCheckedOut());
-		
 		assertEquals("copy should be due in 14 days", calendar.getTime().toString(), copy.getDueDate().toString());
-		
 		assertEquals("patron should have 1 copy checked out", 1, patron.getCheckedOutCopyCount());
-		assertEquals("patron's copy should match this copy", true, patron.checkInCopy(copy));
 	}
 	
 	@Test
 	public void test_log_event() {
 		Controller controller = new Controller();
-		Worker worker = controller.loginWorker("a1b2c3");
-		Patron patron = controller.startTransaction("123abc");
+		Worker worker = controller.loginWorker("W1");
+		Patron patron = controller.startTransaction("P1");
 		controller.setTransactionType("out");	
-		Copy copy = controller.checkOutCopy("abc123");
+		Copy copy = controller.checkOutCopy("C1");
 		
 		controller.completeSession();
 
@@ -113,8 +106,6 @@ public class ControllerTest {
 		Copy copy2 = controller.checkOutCopy("C2");
 		checkOutQueue.add(copy2);
 		
-		StdOut.print(copy1);
-		
 		assertEquals("check out queue should have 2 copies", 2, controller.getCheckOutQueue().size());
 		assertEquals("copy 1 shouldn't be checked out yet", false, copy1.isCheckedOut());
 
@@ -124,7 +115,7 @@ public class ControllerTest {
 		assertEquals("copy 2 should be checked out", true, copy2.isCheckedOut());
 		checkOutQueue.poll();
 		checkOutQueue.poll();
-		assertEquals("the check out queue shoudl be empty", checkOutQueue, controller.getCheckOutQueue());
+		assertEquals("the check out queue should be empty", checkOutQueue, controller.getCheckOutQueue());
 	}
 	
 	@Test

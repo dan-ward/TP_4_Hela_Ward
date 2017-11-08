@@ -46,7 +46,7 @@ public class WorkerTest {
 		FakeDB db = new FakeDB();		
 		Worker worker = db.getWorker("W1");
 		
-		assertEquals("worker toString() failure", "a1b2c3", worker.toString());
+		assertEquals("worker toString() failure", "W1", worker.toString());
 	}
 	
 }

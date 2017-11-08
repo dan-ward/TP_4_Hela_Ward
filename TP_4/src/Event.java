@@ -1,11 +1,10 @@
 import java.util.Calendar;
 
 public class Event {
+	private Calendar eventDateTime;
 	private Worker worker;
 	private Patron patron;
 	private Copy copy;
-	private Calendar eventDateTime;
-	
 	
 	public Event(Worker worker, Patron patron, Copy copy) {
 		this.eventDateTime = Calendar.getInstance();
@@ -52,7 +51,4 @@ public class Event {
 				+ "\n\t" + patron.toString() 
 				+ "\n\t" + copy.toString();
 	}
-
-
-
 }

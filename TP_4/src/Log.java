@@ -25,7 +25,6 @@ public class Log {
 		for(int i = 1; i < log.size(); i++) {
 			logString += this.getEvent(i).toString() + '\n';
 		}
-		
 		return logString;
 	}
 }
