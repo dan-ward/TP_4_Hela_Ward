@@ -38,7 +38,10 @@ public class Patron {
 		return this.id;
 	}
 	
-	public void checkOutCopy(Copy copy) {
+	public void checkOutCopy(Copy copy) throws HoldException {
+		if(holds.size() > 0) {
+			throw new HoldException(holds.size() + " hold" + (holds.size() == 1 ? "!" : "s!"));
+		}
 		checkedOutCopies.add(copy);
 	}
 	

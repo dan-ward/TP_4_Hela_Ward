@@ -39,7 +39,11 @@ public class PatronTest {
 		Patron patron = db.getPatron("P1");
 		Copy copy = db.getCopy("C1");
 		
-		patron.checkOutCopy(copy);
+		try {
+			patron.checkOutCopy(copy);
+		} catch (HoldException e) {
+			e.printStackTrace();
+		}
 		
 		assertEquals("copy not checked out, in correctly", true, patron.checkInCopy(copy));
 	}
@@ -51,8 +55,16 @@ public class PatronTest {
 		Copy copy1 = db.getCopy("C1");
 		Copy copy2 = db.getCopy("C2");
 		
-		patron.checkOutCopy(copy1);
-		patron.checkOutCopy(copy1);
+		try {
+			patron.checkOutCopy(copy1);
+		} catch (HoldException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			patron.checkOutCopy(copy1);
+		} catch (HoldException e) {
+			e.printStackTrace();
+		}
 		
 		assertEquals("patron should have 2 copies checked out", 2, patron.getCheckedOutCopyCount());
 	}
@@ -80,18 +92,31 @@ public class PatronTest {
 	}
 	
 	@Test
-	public void test_get_checked_out_copy_out() {
+	public void test_patron_check_out_with_hold() {
 		Textbook textbook = new Textbook("Test hold title");
 		Copy copy1 = new Copy("C1", textbook);
 		Copy copy2 = new Copy("C2", textbook);
 		Hold hold = new Hold(copy1, "Overdue book");
 		Patron patron = new Patron("P3", "Test hold patron");
 		
-		patron.checkOutCopy(copy1);
-		patron.addHold(hold);
-		patron.checkOutCopy(copy2);
+		String holdMessages = "";
 		
-		assertEquals("patron should have 2 copies checked out", 2, patron.getCheckedOutCopyCount());
+		try {
+			patron.checkOutCopy(copy1);
+		} catch (HoldException e) {
+			holdMessages += e.toString();
+			StdOut.println(e.toString());
+		}
+		patron.addHold(hold);
+		try {			
+			patron.checkOutCopy(copy2);
+		} catch (HoldException e) {
+			holdMessages += e.toString();
+			StdOut.println(e.toString());
+		}
+		
+		assertEquals("exception message should match", "HoldException: 1 hold!", holdMessages);
+		assertEquals("patron should have 1 copy checked out", 1, patron.getCheckedOutCopyCount());
 	}	
 	
 }

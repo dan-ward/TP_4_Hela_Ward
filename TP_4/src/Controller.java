@@ -69,7 +69,7 @@ public class Controller {
 		return this.checkOutQueue;
 	}
 	
-	public void completeSession() {
+	public void completeSession() throws HoldException {
 		while (checkOutQueue.size() > 0) {
 			Copy c = checkOutQueue.poll();
 			c.checkOut();
