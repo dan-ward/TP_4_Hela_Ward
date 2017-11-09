@@ -74,7 +74,7 @@ public class Controller {
 			Copy c = checkOutQueue.poll();
 			c.checkOut();
 			StdOut.println(c.toString());
-			this.activePatron.addCheckedOutCopy(c);
+			this.activePatron.checkOutCopy(c);
 			Event event = new Event(this.activeWorker, this.activePatron, c);
 			lastEventKey = this.log.logEvent(event);
 			checkOutQueue.remove(c);

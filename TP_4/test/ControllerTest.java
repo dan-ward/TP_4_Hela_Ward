@@ -10,7 +10,7 @@ import org.junit.Test;
 public class ControllerTest {
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws Exception {	
 	}
 
 	@Test
@@ -53,6 +53,13 @@ public class ControllerTest {
 		assertEquals("check out should set copy's isCheckedOut", true, copy.isCheckedOut());
 		assertEquals("copy should be due in 14 days", calendar.getTime().toString(), copy.getDueDate().toString());
 		assertEquals("patron should have 1 copy checked out", 1, patron.getCheckedOutCopyCount());
+	}
+	
+	@Test
+	public void test_check_in_all_copies() {
+		Controller controller = new Controller();
+		controller.checkInAllCopies();
+		assertEquals("no copies should be checked out", 0, controller.getAllCheckedOutCopies().size());
 	}
 	
 	@Test
@@ -158,12 +165,7 @@ public class ControllerTest {
 		assertEquals("logs should match", log.toString(), controller.getLog().toString());
 	}
 	
-	@Test
-	public void test_check_in_all_copies() {
-		Controller controller = new Controller();
-		controller.checkInAllCopies();
-		assertEquals("no copies should be checked out", 0, controller.getAllCheckedOutCopies().size());
-	}
+
 	
 	
 }
