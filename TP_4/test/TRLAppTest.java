@@ -6,7 +6,8 @@ public class TRLAppTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		// Commented out; we may decide to not unit test TRLApp
+		//		fail("Not yet implemented");
 	}
 
 }

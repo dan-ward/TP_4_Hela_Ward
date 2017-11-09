@@ -10,7 +10,7 @@ import org.junit.Test;
 public class ControllerTest {
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws Exception {	
 	}
 
 	@Test
@@ -45,7 +45,12 @@ public class ControllerTest {
 		controller.setTransactionType("out");
 		Copy copy = controller.checkOutCopy("C1");
 		
-		controller.completeSession();
+		try {
+			controller.completeSession();
+		} catch (HoldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DAY_OF_MONTH, 14);
 		
@@ -56,6 +61,13 @@ public class ControllerTest {
 	}
 	
 	@Test
+	public void test_check_in_all_copies() {
+		Controller controller = new Controller();
+		controller.checkInAllCopies();
+		assertEquals("no copies should be checked out", 0, controller.getAllCheckedOutCopies().size());
+	}
+	
+	@Test
 	public void test_log_event() {
 		Controller controller = new Controller();
 		Worker worker = controller.loginWorker("W1");
@@ -63,7 +75,12 @@ public class ControllerTest {
 		controller.setTransactionType("out");	
 		Copy copy = controller.checkOutCopy("C1");
 		
-		controller.completeSession();
+		try {
+			controller.completeSession();
+		} catch (HoldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		Event event = new Event(worker, patron, copy);
 		
@@ -150,7 +167,12 @@ public class ControllerTest {
 		assertEquals("check out queue should have 2 copies", 2, controller.getCheckOutQueue().size());
 		assertEquals("copy 1 shouldn't be checked out yet", false, copy1.isCheckedOut());
 
-		controller.completeSession();
+		try {
+			controller.completeSession();
+		} catch (HoldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		assertEquals("copy 1 should be checked out", true, copy1.isCheckedOut());
 		assertEquals("copy 2 should be checked out", true, copy2.isCheckedOut());
@@ -174,17 +196,17 @@ public class ControllerTest {
 		Copy copy2 = controller.checkOutCopy("C2");
 		log.logEvent(new Event(worker, patron, copy2));
 		checkOutQueue.add(copy2);
-		controller.completeSession();		
+		try {
+			controller.completeSession();
+		} catch (HoldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		
 		assertEquals("logs should match", log.toString(), controller.getLog().toString());
 	}
 	
-	@Test
-	public void test_check_in_all_copies() {
-		Controller controller = new Controller();
-		controller.checkInAllCopies();
-		assertEquals("no copies should be checked out", 0, controller.getAllCheckedOutCopies().size());
-	}
+
 	
 	
 }

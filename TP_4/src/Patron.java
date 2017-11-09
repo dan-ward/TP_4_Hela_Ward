@@ -6,6 +6,7 @@ public class Patron {
 	private String id;
 	private String name;
 	private List<Copy> checkedOutCopies = new ArrayList<Copy>();
+	private List<Hold> holds = new ArrayList<Hold>();
 	
 	public Patron() {
 		this.id = "";
@@ -37,7 +38,10 @@ public class Patron {
 		return this.id;
 	}
 	
-	public void addCheckedOutCopy(Copy copy) {
+	public void checkOutCopy(Copy copy) throws HoldException {
+		if(holds.size() > 0) {
+			throw new HoldException(holds.size() + " hold" + (holds.size() == 1 ? "!" : "s!"));
+		}
 		checkedOutCopies.add(copy);
 	}
 	
@@ -51,5 +55,17 @@ public class Patron {
 	
 	public List<Copy> getCheckedOutCopies() {
 		return checkedOutCopies;
+	}
+	
+	public void addHold(Hold hold) {
+		holds.add(hold);
+	}
+	
+	public List<Hold> getHolds() {
+		return this.holds;
+	}
+	
+	public void removeHold(Hold hold) {
+		holds.remove(hold);
 	}
 }
