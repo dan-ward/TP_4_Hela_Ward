@@ -71,6 +71,27 @@ public class ControllerTest {
 	}
 
 	@Test
+	public void test_validate_and_set_patron() {
+		String patronId = "P1";
+		Controller controller = new Controller();
+		
+		boolean isPatron = controller.validateAndSetPatron(patronId);
+		
+		assertEquals("patron is not valid", true, isPatron);
+	}
+	
+	@Test
+	public void test_validate_and_set_patron_fake_patronID() {
+		String patronId = "P9";
+		Controller controller = new Controller();
+		
+		boolean isPatron = controller.validateAndLoginWorker(patronId);
+		
+		assertEquals("patron is valid", false, isPatron);
+	}
+	
+	
+	@Test
 	public void test_login_worker() {
 		String workerId = "W1";
 		Controller controller = new Controller();

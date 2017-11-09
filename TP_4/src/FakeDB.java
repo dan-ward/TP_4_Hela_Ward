@@ -42,6 +42,14 @@ public class FakeDB {
 	public Worker getWorker(String key) {
 		return workerStore.get(key);
 	}
+
+	public boolean validatePatronID(String key) {
+		if (patronStore.get(key) == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 	
 	public Patron getPatron(String key) {
 		return patronStore.get(key);

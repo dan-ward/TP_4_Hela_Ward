@@ -24,6 +24,21 @@ public class FakeDBTest {
 		assertNotNull("Patron is null", p);
 		assertEquals("Patron Id id not as expected", "P1", p.getId());
 	}	
+
+	@Test
+	public void test_validate_valid_patron() {
+		FakeDB db = new FakeDB();
+		Patron p = db.getPatron("P1");
+		assertNotNull("patron is null", p);
+		assertEquals("patron id not as expected", "P1", p.getId());
+	}
+
+	@Test
+	public void test_validate_invalid_patron() {
+		FakeDB db = new FakeDB();
+		Patron p = db.getPatron("P9");
+		assertNull("patron is not null", p);
+	}
 	
 	@Test
 	public void test_get_copy() {
@@ -34,7 +49,7 @@ public class FakeDBTest {
 	}
 	
 	@Test
-	public void test_get_worker() {
+	public void test_validate_valid_worker() {
 		FakeDB db = new FakeDB();
 		Worker worker = db.getWorker("W1");
 		assertNotNull("worker is null", worker);
@@ -42,7 +57,7 @@ public class FakeDBTest {
 	}
 
 	@Test
-	public void test_get_invalid_worker() {
+	public void test_validate_invalid_worker() {
 		FakeDB db = new FakeDB();
 		Worker worker = db.getWorker("W9");
 		assertNull("worker is not null", worker);

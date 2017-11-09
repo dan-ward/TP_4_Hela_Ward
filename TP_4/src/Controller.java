@@ -22,7 +22,7 @@ public class Controller {
 	}
 	
 	public Boolean setTransactionType(String transactionType) {
-		if(transactionType == "out" || transactionType == "in") {
+		if(transactionType.equalsIgnoreCase("out") || transactionType.equalsIgnoreCase("in")) {
 			this.transactionType = transactionType;
 			return true;
 		}
@@ -40,7 +40,16 @@ public class Controller {
 	public void setActivePatron(Patron activePatron) {
 		this.activePatron = activePatron;
 	}
-	
+
+	public boolean validateAndSetPatron(String patronID) {
+		if (this.db.validatePatronID(patronID)) {
+			this.activePatron = startTransaction(patronID);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public Copy checkOutCopy(String copyId) {
 		this.activeCopy = this.db.getCopy(copyId);
 		checkOutQueue.add(this.activeCopy);
