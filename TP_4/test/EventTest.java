@@ -19,7 +19,7 @@ public class EventTest {
 		Patron patron = db.getPatron("P1");
 		Worker worker = db.getWorker("W1");
 		
-		Event event = new Event(worker, patron, copy);
+		Event event = new Event(worker, patron, copy, "Check Out");
 		
 		assertNotNull("event is null", event);
 	}
@@ -31,7 +31,7 @@ public class EventTest {
 		Patron patron = db.getPatron("P1");
 		Worker worker = db.getWorker("W1");
 		
-		Event event = new Event(worker, patron, copy);
+		Event event = new Event(worker, patron, copy, "Check In");
 			
 		assertEquals("event Patron not correct", patron, event.getPatron());
 		assertEquals("event Copy not correct", copy, event.getCopy());
@@ -43,13 +43,15 @@ public class EventTest {
 		Copy copy = db.getCopy("C1");
 		Patron patron = db.getPatron("P1");
 		Worker worker = db.getWorker("W1");
+		String action = "Check Out";
 		
-		Event event = new Event(worker, patron, copy);		
+		Event event = new Event(worker, patron, copy, action);		
 		
 		assertEquals("event not as expected", event.getEventDateTime().getTime()
 				+ "\n\t" + worker.toString()
 				+ "\n\t" + patron.toString() 
-				+ "\n\t" + copy.toString(), event.toString());
+				+ "\n\t" + copy.toString()
+				+ "\n\t" + action, event.toString());
 	}
 
 }

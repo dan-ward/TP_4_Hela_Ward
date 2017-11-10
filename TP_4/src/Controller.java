@@ -61,10 +61,19 @@ public class Controller {
 	}
 	
 	public boolean validateAndLoginWorker(String workerID) {
+		Event workerLoginEvent = new Event();
+		
 		if (this.db.validateWorkerID(workerID)) {
 			this.activeWorker = this.loginWorker(workerID);
+			
+			workerLoginEvent.setWorker(this.activeWorker);
+			workerLoginEvent.setAction("Worker Login Successful for WorkerID: " + workerID);
+			
+			log.logEvent(workerLoginEvent);
 			return true;
+			
 		} else {
+			workerLoginEvent.setAction("Worker Login Unsuccessful for WorkerID: " + workerID);
 			return false;
 		}
 	}
@@ -84,7 +93,7 @@ public class Controller {
 			c.checkOut();
 			StdOut.println(c.toString());
 			this.activePatron.checkOutCopy(c);
-			Event event = new Event(this.activeWorker, this.activePatron, c);
+			Event event = new Event(this.activeWorker, this.activePatron, c, transactionType);
 			lastEventKey = this.log.logEvent(event);
 			checkOutQueue.remove(c);
 		}

@@ -5,12 +5,18 @@ public class Event {
 	private Worker worker;
 	private Patron patron;
 	private Copy copy;
+	private String action;
 	
-	public Event(Worker worker, Patron patron, Copy copy) {
+	public Event(Worker worker, Patron patron, Copy copy, String action) {
 		this.eventDateTime = Calendar.getInstance();
 		this.worker = worker;
 		this.patron = patron;
 		this.copy = copy;
+		this.action = action;
+	}
+	
+	public Event() {
+		this.eventDateTime = Calendar.getInstance();
 	}
 	
 	public Calendar getEventDateTime() {
@@ -44,11 +50,20 @@ public class Event {
 	public void setCopy(Copy copy) {
 		this.copy = copy;
 	}
-	
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
+	}
+
 	public String toString() {
 		return eventDateTime.getTime()
 				+ "\n\t" + worker.toString()
 				+ "\n\t" + patron.toString() 
-				+ "\n\t" + copy.toString();
+				+ "\n\t" + copy.toString()
+				+ "\n\t" + action;
 	}
 }

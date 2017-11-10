@@ -16,7 +16,7 @@ public class LogTest {
 		Copy c = db.getCopy("C1");
 		Patron p = db.getPatron("P1");
 		Worker w = db.getWorker("W1");
-		Event event = new Event(w, p, c);
+		Event event = new Event(w, p, c,"Check Out");
 		Log log = new Log();
 		
 		int key = log.logEvent(event);
@@ -30,12 +30,26 @@ public class LogTest {
 		Copy c = db.getCopy("C1");
 		Patron p = db.getPatron("P1");
 		Worker w = db.getWorker("W1");
-		Event event = new Event(w, p, c);
+		Event event = new Event(w, p, c, "Check In");
 		Log log = new Log();
 		
 		int key = log.logEvent(event);
 		
 		assertEquals("event", event, log.getEvent(key));
 	}	
+	
+	@Test
+	public void test_log_event3() {
+		Event event = new Event();
+		event.setAction("out");
+		Log log = new Log();
+		
+		int key = log.logEvent(event);
+		
+		assertEquals("event", event, log.getEvent(key));
+	}	
+	
+	
+	
 
 }

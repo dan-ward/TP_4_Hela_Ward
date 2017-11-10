@@ -82,7 +82,7 @@ public class ControllerTest {
 			e.printStackTrace();
 		}
 
-		Event event = new Event(worker, patron, copy);
+		Event event = new Event(worker, patron, copy, controller.getTransactionType());
 		
 		assertEquals("event should contain worker, patron, copy", event.toString(), controller.getLastEvent().toString());
 	}
@@ -191,10 +191,11 @@ public class ControllerTest {
 		controller.setTransactionType("out");
 		Queue<Copy> checkOutQueue = new LinkedList<Copy>();
 		Copy copy1 = controller.checkOutCopy("C1");
-		log.logEvent(new Event(worker, patron, copy1));
+		String action = "Check Out";
+		log.logEvent(new Event(worker, patron, copy1, action));
 		checkOutQueue.add(copy1);
 		Copy copy2 = controller.checkOutCopy("C2");
-		log.logEvent(new Event(worker, patron, copy2));
+		log.logEvent(new Event(worker, patron, copy2, action));
 		checkOutQueue.add(copy2);
 		try {
 			controller.completeSession();
