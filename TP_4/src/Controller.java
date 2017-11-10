@@ -22,11 +22,20 @@ public class Controller {
 	}
 	
 	public Boolean setTransactionType(String transactionType) {
+		Event setTransactionEvent = new Event();
+		setTransactionEvent.setWorker(this.activeWorker);
+		setTransactionEvent.setPatron(this.activePatron);
+		
 		if(transactionType.equalsIgnoreCase("out") || transactionType.equalsIgnoreCase("in")) {
 			this.transactionType = transactionType;
+			setTransactionEvent.setAction("Transaction Type of " + this.transactionType + " successfully set");
+			log.logEvent(setTransactionEvent);
 			return true;
+		} else {
+			setTransactionEvent.setAction("Transaction Type of " + this.transactionType + " failed to set");
+			log.logEvent(setTransactionEvent);
+			return false;
 		}
-		return false;
 	}
 	
 	public String getTransactionType() {
@@ -42,10 +51,21 @@ public class Controller {
 	}
 
 	public boolean validateAndSetPatron(String patronID) {
+		Event validatePatron = new Event();
+		validatePatron.setWorker(this.activeWorker);
+		
 		if (this.db.validatePatronID(patronID)) {
-			this.activePatron = startTransaction(patronID);
+			this.setActivePatron(startTransaction(patronID));
+			//this.activePatron = startTransaction(patronID);
+			validatePatron.setPatron(this.activePatron);
+			validatePatron.setAction("Validated and Set Patron: " + patronID);
+			log.logEvent(validatePatron);
+			
 			return true;
 		} else {
+			validatePatron.setAction("Failed to Validated and Set Patron: " + patronID);
+			log.logEvent(validatePatron);
+
 			return false;
 		}
 	}
@@ -54,6 +74,25 @@ public class Controller {
 		this.activeCopy = this.db.getCopy(copyId);
 		checkOutQueue.add(this.activeCopy);
 		return this.activeCopy;
+	}
+
+	public boolean validateAndCheckOutCopy(String copyID) {
+		Event copyCheckoutEvent = new Event();
+		copyCheckoutEvent.setWorker(this.activeWorker);
+		copyCheckoutEvent.setPatron(this.getActivePatron());
+		
+		if (this.db.validateCopyID(copyID)) {
+
+			copyCheckoutEvent.setCopy(this.checkOutCopy(copyID));
+			copyCheckoutEvent.setAction("Copy Validated and Successfully Set, Copy ID: " + copyID);
+			
+			log.logEvent(copyCheckoutEvent);
+			return true; 
+			
+		} else {
+			copyCheckoutEvent.setAction("Copy Failed to Validate, Copy ID: " + copyID);
+			return false;
+		}
 	}
 	
 	public Event getLastEvent() {
@@ -91,7 +130,7 @@ public class Controller {
 		while (checkOutQueue.size() > 0) {
 			Copy c = checkOutQueue.poll();
 			c.checkOut();
-			StdOut.println(c.toString());
+			//StdOut.println(c.toString());
 			this.activePatron.checkOutCopy(c);
 			Event event = new Event(this.activeWorker, this.activePatron, c, transactionType);
 			lastEventKey = this.log.logEvent(event);

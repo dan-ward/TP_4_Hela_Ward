@@ -57,6 +57,39 @@ public class TRLApp {
 		return transactionType;	
 		
 	}
+
+	private static void checkoutCopy() {
+		
+		String copyID;
+		
+		StdOut.print("Please enter the copy ID: ");
+		copyID = StdIn.readString();
+
+		while (!TRLController.validateAndCheckOutCopy(copyID)) {
+			StdOut.println("The copy ID of: " + copyID + " is not valid.");
+			StdOut.print("Please enter a valid copy ID: ");
+			copyID = StdIn.readString();
+		}
+
+		StdOut.println("Copy " + copyID + " was successfully added to the checkout queue");	
+		
+	}
+
+	private static void checkoutCopies() {
+		String checkOutAnother = "y";
+		while (checkOutAnother.equalsIgnoreCase("y")) {
+			checkoutCopy();
+			StdOut.print("Would you like to checkout another y/n? ");
+			checkOutAnother = StdIn.readString();
+		}
+		
+		try {
+			TRLController.completeSession();
+			StdOut.println("All of your copies have been checked out.  Thank you!");
+		} catch (HoldException e) {
+			StdOut.println("Sorry your copies failed to checkout, please try again later.");
+		}
+	}
 	
 	public static void main(String[] args) {
 		String workerID;
@@ -71,6 +104,13 @@ public class TRLApp {
 
 		transactionType = promptForAndSetTransactionType();
 		
+		if (transactionType.equals("out")) {
+			checkoutCopies();
+		} else {
+			StdOut.println("Sorry you entered an invalid transaction type");
+		}
+			
+		 
 	}
 
 }

@@ -151,6 +151,22 @@ public class ControllerTest {
 		
 		assertEquals("check out queue does not match expected value", checkOutQueue, controller.getCheckOutQueue());
 	}
+
+	@Test
+	public void test_validate_and_checkout_copy() {
+		Controller controller = new Controller();
+		
+		assertEquals("copy is not valid", true, controller.validateAndCheckOutCopy("C1"));
+	}
+	
+	@Test
+	public void test_validate_and_checkout_copy_fail() {
+		Controller controller = new Controller();
+		
+		assertEquals("copy is valid", false, controller.validateAndCheckOutCopy("C9"));
+	}
+
+	
 	
 	@Test
 	public void test_complete_session() {

@@ -54,6 +54,14 @@ public class FakeDB {
 	public Patron getPatron(String key) {
 		return patronStore.get(key);
 	}
+
+	public boolean validateCopyID(String key) {
+		if (copyStore.get(key) == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 	
 	public Copy getCopy(String key) {
 		return copyStore.get(key);
