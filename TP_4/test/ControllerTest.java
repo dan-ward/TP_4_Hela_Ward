@@ -139,6 +139,24 @@ public class ControllerTest {
 	}
 	
 	@Test
+	public void test_get_active_patron_string() {
+		Controller controller = new Controller();
+		Patron patron = controller.startTransaction("P1");
+		
+		assertEquals("Patron string doesn't match", controller.getActivePatronString(), "Patron ID: P1 Patron Name: Test Patron");
+	}
+	
+	@Test
+	public void test_get_active_copy_string() {
+		Controller controller = new Controller();
+		FakeDB db = new FakeDB();
+		controller.activeCopy = db.getCopy("C1");
+		
+		assertEquals("Copy string doesn't match", controller.getActiveCopyString(), "Copy ID: C1 Title Name: Test Title");
+	}
+
+	
+	@Test
 	public void test_add_copy_to_check_out_queue() {
 		Controller controller = new Controller();
 		Worker worker = controller.loginWorker("W2");

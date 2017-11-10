@@ -50,6 +50,15 @@ public class Controller {
 		this.activePatron = activePatron;
 	}
 
+	public String getActivePatronString() {
+		return "Patron ID: " + this.activePatron.getId() + " Patron Name: " + this.activePatron.getName();
+	}  
+
+	public String getActiveCopyString() {
+		return "Copy ID: " + this.activeCopy.getId() + " Title Name: " + this.activeCopy.getTitle();
+	}  
+
+	
 	public boolean validateAndSetPatron(String patronID) {
 		Event validatePatron = new Event();
 		validatePatron.setWorker(this.activeWorker);

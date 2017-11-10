@@ -9,7 +9,7 @@ public class TRLApp {
 		StdOut.println("Welcome to the TRL");
 	}
 	
-	private static String promptForWorkerIDAndLogin() {
+	private static void promptForWorkerIDAndLogin() {
 		String workerID;
 
 		StdOut.print("Please enter your WorkerID: ");
@@ -23,10 +23,9 @@ public class TRLApp {
 
 		StdOut.println(workerID + " was successfully logged in.");
 		
-		return workerID;
 	}
 
-	private static String promptForPatronIDandSetPatron() {
+	private static void promptForPatronIDandSetPatron() {
 		String patronID;
 
 		StdOut.print("Please enter the PatronID: ");
@@ -37,10 +36,14 @@ public class TRLApp {
 			StdOut.print("Please enter the PatronID: ");
 			patronID = StdIn.readString();
 		}
-
-		return patronID;
 	}
 
+	private static void printPatronInformation() {
+		StdOut.println(TRLController.getActivePatronString());
+	}
+	
+	
+	
 	private static String promptForAndSetTransactionType() {
 		
 		String transactionType;
@@ -71,6 +74,8 @@ public class TRLApp {
 			copyID = StdIn.readString();
 		}
 
+		StdOut.println(TRLController.getActiveCopyString());
+		
 		StdOut.println("Copy " + copyID + " was successfully added to the checkout queue");	
 		
 	}
@@ -83,6 +88,13 @@ public class TRLApp {
 			checkOutAnother = StdIn.readString();
 		}
 		
+		while (TRLController.checkOutQueue.size() > 0) {
+			Copy c = TRLController.checkOutQueue.poll();
+			StdOut.println("Copy ID: " + c.getId() + " Title: " + c.getTitle() + " is being checked out.");
+		}
+		
+		
+		
 		try {
 			TRLController.completeSession();
 			StdOut.println("All of your copies have been checked out.  Thank you!");
@@ -92,16 +104,16 @@ public class TRLApp {
 	}
 	
 	public static void main(String[] args) {
-		String workerID;
-		String patronID;
 		String transactionType;
 		
 		welcomeMessage();
 		
-		workerID = promptForWorkerIDAndLogin();
+		promptForWorkerIDAndLogin();
 
-		patronID = promptForPatronIDandSetPatron();
+		promptForPatronIDandSetPatron();
 
+		printPatronInformation();
+		
 		transactionType = promptForAndSetTransactionType();
 		
 		if (transactionType.equals("out")) {
