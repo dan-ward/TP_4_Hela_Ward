@@ -11,7 +11,7 @@ public class TRLApp {
 	private static void promptForWorkerIDAndLogin() {
 		String workerID;
 
-		StdOut.print("Please enter your WorkerID (e.g., W1): ");
+		StdOut.print("Please enter your WorkerID (e.g., W1 or W2): ");
 		workerID = StdIn.readString();
 
 		while (!TRLController.validateAndLoginWorker(workerID)) {
@@ -26,7 +26,7 @@ public class TRLApp {
 	private static void promptForPatronIDandSetPatron() {
 		String patronID;
 
-		StdOut.print("Please enter the PatronID (e.g., P1): ");
+		StdOut.print("Please enter the PatronID (e.g., P1 or P2): ");
 		patronID = StdIn.readString();
 
 		while (!TRLController.validateAndSetPatron(patronID)) {
@@ -60,7 +60,7 @@ public class TRLApp {
 		
 		String copyID;
 		
-		StdOut.print("Please enter the copy ID (e.g., C1, C2): ");
+		StdOut.print("Please enter the copy ID (e.g., C1 or C2): ");
 		copyID = StdIn.readString();
 
 		while (!TRLController.validateAndCheckOutCopy(copyID)) {
