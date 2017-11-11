@@ -124,8 +124,6 @@ public class Controller {
 			String action = "Worker Login Successful for WorkerID: " + workerID;
 			Event workerLogin = new Event.EventBuilder(action)
 					.worker(this.activeWorker)
-					.patron(this.activePatron)
-					.copy(this.activeCopy)
 					.build();
 			log.logEvent(workerLogin);
 			return true;
@@ -134,8 +132,6 @@ public class Controller {
 			String action = "Worker Login Unsuccessful for WorkerID: " + workerID;
 			Event workerLogin = new Event.EventBuilder(action)
 					.worker(this.activeWorker)
-					.patron(this.activePatron)
-					.copy(this.activeCopy)
 					.build();
 			log.logEvent(workerLogin);
 			return false;
