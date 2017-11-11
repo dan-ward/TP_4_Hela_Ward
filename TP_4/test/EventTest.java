@@ -19,7 +19,11 @@ public class EventTest {
 		Patron patron = db.getPatron("P1");
 		Worker worker = db.getWorker("W1");
 		
-		Event event = new Event(worker, patron, copy, "Check Out");
+		Event event = new Event.EventBuilder("Check Out")
+				.worker(worker)
+				.patron(patron)
+				.copy(copy)
+				.build();
 		
 		assertNotNull("event is null", event);
 	}
@@ -31,7 +35,11 @@ public class EventTest {
 		Patron patron = db.getPatron("P1");
 		Worker worker = db.getWorker("W1");
 		
-		Event event = new Event(worker, patron, copy, "Check In");
+		Event event = new Event.EventBuilder("Check In")
+				.worker(worker)
+				.patron(patron)
+				.copy(copy)
+				.build();		
 			
 		assertEquals("event Patron not correct", patron, event.getPatron());
 		assertEquals("event Copy not correct", copy, event.getCopy());
@@ -45,13 +53,37 @@ public class EventTest {
 		Worker worker = db.getWorker("W1");
 		String action = "Check Out";
 		
-		Event event = new Event(worker, patron, copy, action);		
+		Event event = new Event.EventBuilder(action)
+				.worker(worker)
+				.patron(patron)
+				.copy(copy)
+				.build();
 		
 		assertEquals("event not as expected", event.getEventDateTime().getTime()
+				+ "\n\t" + action
 				+ "\n\t" + worker.toString()
 				+ "\n\t" + patron.toString() 
 				+ "\n\t" + copy.toString()
-				+ "\n\t" + action, event.toString());
+				, event.toString());
 	}
+	
+	@Test
+	public void test_event_to_string_without_copy() {
+		FakeDB db = new FakeDB();		
+		Patron patron = db.getPatron("P1");
+		Worker worker = db.getWorker("W1");
+		String action = "Check Out";
+		
+		Event event = new Event.EventBuilder(action)
+				.worker(worker)
+				.patron(patron)
+				.build();
+		
+		assertEquals("event not as expected", event.getEventDateTime().getTime()
+				+ "\n\t" + action
+				+ "\n\t" + worker.toString()
+				+ "\n\t" + patron.toString() 
+				, event.toString());
+	}	
 
 }

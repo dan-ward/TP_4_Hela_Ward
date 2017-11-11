@@ -33,15 +33,13 @@ public class ControllerTest {
 		controller.setTransactionType("in");
 		assertEquals("controller transaction type != in", "in", controller.getTransactionType());
 		
-		controller.setTransactionType("out");
-		assertEquals("controller transaction type != out", false, controller.setTransactionType("bad transaction type"));
+		assertEquals("controller transaction type should be false", false, controller.setTransactionType("inout"));
 	}
 	
 	@Test
 	public void test_check_out_copy() {
 		Controller controller = new Controller();
-		controller.checkInAllCopies();		
-		Patron patron = controller.startTransaction("P1");
+		Patron patron = controller.startTransaction("P2");
 		controller.setTransactionType("out");
 		Copy copy = controller.checkOutCopy("C1");
 		
@@ -58,13 +56,8 @@ public class ControllerTest {
 		assertEquals("check out should set copy's isCheckedOut", true, copy.isCheckedOut());
 		assertEquals("copy should be due in 14 days", calendar.getTime().toString(), copy.getDueDate().toString());
 		assertEquals("patron should have 1 copy checked out", 1, patron.getCheckedOutCopyCount());
-	}
-	
-	@Test
-	public void test_check_in_all_copies() {
-		Controller controller = new Controller();
-		controller.checkInAllCopies();
-		assertEquals("no copies should be checked out", 0, controller.getAllCheckedOutCopies().size());
+		copy.checkIn();
+		patron.checkInCopy(copy);
 	}
 	
 	@Test
@@ -81,10 +74,16 @@ public class ControllerTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		Event event = new Event(worker, patron, copy, controller.getTransactionType());
+		
+		Event event = new Event.EventBuilder("Complete Session - Check Out")
+				.worker(worker)
+				.patron(patron)
+				.copy(copy)
+				.build();
 		
 		assertEquals("event should contain worker, patron, copy", event.toString(), controller.getLastEvent().toString());
+		copy.checkIn();
+		patron.checkInCopy(copy);
 	}
 
 	@Test
@@ -137,7 +136,8 @@ public class ControllerTest {
 		
 		assertEquals("worker is valid", false, isWorker);
 	}
-	
+
+
 	@Test
 	public void test_get_active_patron_string() {
 		Controller controller = new Controller();
@@ -153,7 +153,7 @@ public class ControllerTest {
 		controller.activeCopy = db.getCopy("C1");
 		
 		assertEquals("Copy string doesn't match", controller.getActiveCopyString(), "Copy ID: C1 Title Name: Test Title");
-	}
+	}	
 
 	
 	@Test
@@ -168,6 +168,8 @@ public class ControllerTest {
 		checkOutQueue.add(copy);
 		
 		assertEquals("check out queue does not match expected value", checkOutQueue, controller.getCheckOutQueue());
+		copy.checkIn();
+		patron.checkInCopy(copy);
 	}
 
 	@Test
@@ -182,9 +184,7 @@ public class ControllerTest {
 		Controller controller = new Controller();
 		
 		assertEquals("copy is valid", false, controller.validateAndCheckOutCopy("C9"));
-	}
-
-	
+	}	
 	
 	@Test
 	public void test_complete_session() {
@@ -213,6 +213,10 @@ public class ControllerTest {
 		checkOutQueue.poll();
 		checkOutQueue.poll();
 		assertEquals("the check out queue should be empty", checkOutQueue, controller.getCheckOutQueue());
+		copy1.checkIn();
+		patron.checkInCopy(copy1);
+		copy2.checkIn();
+		patron.checkInCopy(copy2);
 	}
 	
 	@Test
@@ -226,10 +230,19 @@ public class ControllerTest {
 		Queue<Copy> checkOutQueue = new LinkedList<Copy>();
 		Copy copy1 = controller.checkOutCopy("C1");
 		String action = "Check Out";
-		log.logEvent(new Event(worker, patron, copy1, action));
+		log.logEvent(new Event.EventBuilder(action)
+		.worker(worker)
+		.patron(patron)
+		.copy(copy1)
+		.build());
+		
 		checkOutQueue.add(copy1);
 		Copy copy2 = controller.checkOutCopy("C2");
-		log.logEvent(new Event(worker, patron, copy2, action));
+		log.logEvent(new Event.EventBuilder(action)
+		.worker(worker)
+		.patron(patron)
+		.copy(copy2)
+		.build());		
 		checkOutQueue.add(copy2);
 		try {
 			controller.completeSession();
@@ -239,9 +252,10 @@ public class ControllerTest {
 		}		
 		
 		assertEquals("logs should match", log.toString(), controller.getLog().toString());
+		copy1.checkIn();
+		patron.checkInCopy(copy1);
+		copy2.checkIn();
+		patron.checkInCopy(copy2);
 	}
-	
-
-	
 	
 }
