@@ -32,5 +32,4 @@ public class Worker {
 	public String toString() {
 		return this.id;
 	}
-	
 }

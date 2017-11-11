@@ -89,8 +89,5 @@ public class FakeDB {
 		for(Copy c: copyStore.values()) {
 			c.checkIn();
 		}
-	}
-	
-
-
+	}	
 }

@@ -85,5 +85,4 @@ public class EventTest {
 				+ "\n\t" + patron.toString() 
 				, event.toString());
 	}	
-
 }

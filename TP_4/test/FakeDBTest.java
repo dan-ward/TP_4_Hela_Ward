@@ -77,6 +77,4 @@ public class FakeDBTest {
 		Copy copy = db.getCopy("C9");
 		assertNull("copy is not null", copy);
 	}
-
-
 }

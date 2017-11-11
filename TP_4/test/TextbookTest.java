@@ -14,5 +14,4 @@ public class TextbookTest {
 		Textbook textbook = new Textbook("This is a Test Title");
 		assertEquals("title failure", "This is a Test Title", textbook.getTitle());
 	}
-
 }

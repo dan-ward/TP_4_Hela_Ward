@@ -231,18 +231,18 @@ public class ControllerTest {
 		Copy copy1 = controller.checkOutCopy("C1");
 		String action = "Check Out";
 		log.logEvent(new Event.EventBuilder(action)
-		.worker(worker)
-		.patron(patron)
-		.copy(copy1)
-		.build());
+				.worker(worker)
+				.patron(patron)
+				.copy(copy1)
+				.build());
 		
 		checkOutQueue.add(copy1);
 		Copy copy2 = controller.checkOutCopy("C2");
 		log.logEvent(new Event.EventBuilder(action)
-		.worker(worker)
-		.patron(patron)
-		.copy(copy2)
-		.build());		
+				.worker(worker)
+				.patron(patron)
+				.copy(copy2)
+				.build());		
 		checkOutQueue.add(copy2);
 		try {
 			controller.completeSession();
@@ -256,6 +256,5 @@ public class ControllerTest {
 		patron.checkInCopy(copy1);
 		copy2.checkIn();
 		patron.checkInCopy(copy2);
-	}
-	
+	}	
 }

@@ -118,5 +118,4 @@ public class PatronTest {
 		assertEquals("exception message should match", "HoldException: 1 hold!", holdMessages);
 		assertEquals("patron should have 1 copy checked out", 1, patron.getCheckedOutCopyCount());
 	}	
-	
 }

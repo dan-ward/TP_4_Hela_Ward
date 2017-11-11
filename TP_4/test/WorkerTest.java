@@ -48,5 +48,4 @@ public class WorkerTest {
 		
 		assertEquals("worker toString() failure", "W1", worker.toString());
 	}
-	
 }

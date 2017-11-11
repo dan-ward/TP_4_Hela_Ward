@@ -22,10 +22,6 @@ public class Controller {
 	}
 	
 	public Boolean setTransactionType(String transactionType) {
-//		Event setTransactionEvent = new Event();
-//		setTransactionEvent.setWorker(this.activeWorker);
-//		setTransactionEvent.setPatron(this.activePatron);
-		
 		if(transactionType.equalsIgnoreCase("out") || transactionType.equalsIgnoreCase("in")) {
 			this.transactionType = transactionType;
 			String action = "Transaction Type of " + this.transactionType + " successfully set";
@@ -68,9 +64,6 @@ public class Controller {
 
 	
 	public boolean validateAndSetPatron(String patronID) {
-//		Event validatePatron = new Event();
-//		validatePatron.setWorker(this.activeWorker);
-		
 		if (this.db.validatePatronID(patronID)) {
 			this.setActivePatron(startTransaction(patronID));
 			String action = "Validated and Set Patron: " + patronID;
@@ -98,10 +91,6 @@ public class Controller {
 	}
 
 	public boolean validateAndCheckOutCopy(String copyID) {
-//		Event copyCheckoutEvent = new Event();
-//		copyCheckoutEvent.setWorker(this.activeWorker);
-//		copyCheckoutEvent.setPatron(this.getActivePatron());
-		
 		if (this.db.validateCopyID(copyID)) {
 			this.activeCopy = this.checkOutCopy(copyID);
 			String action = "Copy Validated and Successfully Set, Copy ID: " + copyID; 
@@ -129,8 +118,6 @@ public class Controller {
 	}
 	
 	public boolean validateAndLoginWorker(String workerID) {
-//		Event workerLoginEvent = new Event();
-		
 		if (this.db.validateWorkerID(workerID)) {
 			this.activeWorker = this.loginWorker(workerID);
 			
@@ -168,10 +155,8 @@ public class Controller {
 		while (checkOutQueue.size() > 0) {
 			Copy c = checkOutQueue.poll();
 			c.checkOut();
-			//StdOut.println(c.toString());
 			this.activeCopy = c;
 			this.activePatron.checkOutCopy(this.activeCopy);
-//			Event event = new Event(this.activeWorker, this.activePatron, c, transactionType);
 			String action = "Complete Session - Check Out";
 			Event completeSession = new Event.EventBuilder(action)
 					.worker(this.activeWorker)
